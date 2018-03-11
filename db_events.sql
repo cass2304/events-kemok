@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-03-2018 a las 06:16:02
+-- Tiempo de generación: 11-03-2018 a las 23:33:30
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `ev_access` (
   `usertype` enum('admin','seller') NOT NULL,
   `view_access` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_access`
@@ -48,7 +48,8 @@ INSERT INTO `ev_access` (`id`, `usertype`, `view_access`) VALUES
 (5, 'admin', 'order'),
 (6, 'seller', 'order'),
 (7, 'admin', 'report'),
-(8, 'seller', 'report');
+(8, 'seller', 'report'),
+(9, 'admin', 'printer');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ev_category` (
   `uid_creator` int(11) DEFAULT NULL,
   PRIMARY KEY (`category_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_category`
@@ -79,7 +80,9 @@ INSERT INTO `ev_category` (`company_id`, `description`, `category_id`, `active`,
 (14, 'Bebidas Frias', 4, 'Y', '2018-03-08 21:50:00', 27),
 (15, 'bebidas', 5, 'Y', '2018-03-08 23:47:00', 30),
 (15, 'Comida caliente', 6, 'Y', '2018-03-08 23:47:00', 30),
-(15, 'snacks', 7, 'Y', '2018-03-08 23:48:00', 30);
+(15, 'snacks', 7, 'Y', '2018-03-08 23:48:00', 30),
+(16, 'Categoria 1', 9, 'Y', '2018-03-11 14:18:00', 32),
+(16, 'Categoria 2', 10, 'Y', '2018-03-11 14:21:00', 32);
 
 -- --------------------------------------------------------
 
@@ -99,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `ev_company` (
   `uid_creator` int(11) DEFAULT NULL,
   `active` enum('Y','N') DEFAULT 'Y',
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_company`
@@ -119,7 +122,8 @@ INSERT INTO `ev_company` (`company_id`, `name`, `nit`, `address`, `phone`, `mana
 (12, 'Empresa 12', '23234', 'Direccion', '342343', 'Encargado', '2018-03-08 19:58:00', 1, 'Y'),
 (13, 'Empresa 12', '3243423', 'Direccion', '2343242', 'Encargado', '2018-03-08 19:59:00', 1, 'Y'),
 (14, 'Empresa 14', '23432423', 'Direccion', '23342', 'Encargado', '2018-03-08 20:00:00', 1, 'Y'),
-(15, 'la gran papaya', '1235678', 'direccion', '34243432', 'dikembe', '2018-03-08 23:44:00', 1, 'Y');
+(15, 'la gran papaya', '1235678', 'direccion', '34243432', 'dikembe', '2018-03-08 23:44:00', 1, 'Y'),
+(16, 'Empresa test', '1231321', '', '', 'Encargado', '2018-03-11 14:04:00', 1, 'Y');
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `ev_event` (
   `active` enum('Y','N') DEFAULT 'Y',
   PRIMARY KEY (`event_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_event`
@@ -149,7 +153,8 @@ INSERT INTO `ev_event` (`event_id`, `company_id`, `description`, `start_date`, `
 (1, 1, 'Evento 1', '2018-03-10', '2018-03-10', '2018-03-04 20:21:00', 1, 'Y'),
 (2, 14, 'Evento semana santa', '2018-03-08', '2018-03-08', '2018-03-08 20:40:00', 1, 'Y'),
 (3, 14, 'Evento pre semana santa', '2018-03-08', '2018-03-08', '2018-03-08 23:10:00', 1, 'Y'),
-(4, 15, 'que papaya', '2018-03-08', '2018-03-09', '2018-03-08 23:49:00', 30, 'Y');
+(4, 15, 'que papaya', '2018-03-08', '2018-03-09', '2018-03-08 23:49:00', 30, 'Y'),
+(5, 16, 'Evento Puerto San Jose', '2018-03-24', '2018-03-25', '2018-03-11 14:35:00', 32, 'Y');
 
 -- --------------------------------------------------------
 
@@ -165,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `ev_inventory` (
   `uid_creator` int(11) DEFAULT NULL,
   `active` enum('Y','N') DEFAULT 'Y',
   PRIMARY KEY (`inventory_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_inventory`
@@ -173,8 +178,9 @@ CREATE TABLE IF NOT EXISTS `ev_inventory` (
 
 INSERT INTO `ev_inventory` (`inventory_id`, `event_id`, `creation_date`, `uid_creator`, `active`) VALUES
 (3, 1, '2018-03-05 10:40:53', 1, 'Y'),
-(4, 2, '2018-03-08 22:38:51', 27, 'Y'),
-(5, 4, '2018-03-08 23:50:29', 30, 'Y');
+(5, 4, '2018-03-08 23:50:29', 30, 'Y'),
+(6, 3, '2018-03-11 12:43:35', 1, 'Y'),
+(7, 5, '2018-03-11 14:39:58', 32, 'Y');
 
 -- --------------------------------------------------------
 
@@ -191,34 +197,40 @@ CREATE TABLE IF NOT EXISTS `ev_inventory_detail` (
   `price` decimal(10,0) NOT NULL,
   `status` enum('initial','supply') DEFAULT 'initial',
   `quantity_sold` int(11) DEFAULT '0',
+  `quantity_initial` int(11) DEFAULT '0',
   PRIMARY KEY (`detail_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_inventory_detail`
 --
 
-INSERT INTO `ev_inventory_detail` (`detail_id`, `inventory_id`, `product_id`, `quantity`, `price`, `status`, `quantity_sold`) VALUES
-(1, 3, 1, 100, '10', 'initial', 25),
-(2, 3, 2, 200, '20', 'initial', 7),
-(3, 3, 3, 300, '30', 'initial', 21),
-(4, 3, 4, 400, '40', 'initial', 0),
-(6, 3, 1, 50, '10', 'supply', 0),
-(7, 3, 2, 700, '7', 'supply', 0),
-(8, 3, 3, 80, '20', 'supply', 0),
-(9, 3, 8, 100, '6', 'initial', 16),
-(10, 3, 8, 500, '10', 'supply', 0),
-(11, 4, 19, 100, '10', 'initial', 2),
-(12, 4, 16, 200, '20', 'initial', 2),
-(13, 4, 18, 500, '15', 'initial', 5),
-(14, 5, 21, 30, '6', 'initial', 1),
-(15, 5, 20, 30, '5', 'initial', 30),
-(16, 5, 22, 300, '3', 'initial', 2),
-(17, 5, 21, 50, '0', 'supply', 0),
-(18, 5, 20, 80, '0', 'supply', 0),
-(19, 5, 21, 67, '0', 'supply', 0),
-(20, 5, 21, 7, '0', 'supply', 0);
+INSERT INTO `ev_inventory_detail` (`detail_id`, `inventory_id`, `product_id`, `quantity`, `price`, `status`, `quantity_sold`, `quantity_initial`) VALUES
+(1, 3, 1, 100, '10', 'initial', 25, NULL),
+(2, 3, 2, 200, '20', 'initial', 7, NULL),
+(3, 3, 3, 300, '30', 'initial', 21, NULL),
+(4, 3, 4, 400, '40', 'initial', 0, NULL),
+(6, 3, 1, 50, '10', 'supply', 0, NULL),
+(7, 3, 2, 700, '7', 'supply', 0, NULL),
+(8, 3, 3, 80, '20', 'supply', 0, NULL),
+(9, 3, 8, 100, '6', 'initial', 16, NULL),
+(10, 3, 8, 500, '10', 'supply', 0, NULL),
+(14, 5, 21, 30, '6', 'initial', 1, NULL),
+(15, 5, 20, 30, '5', 'initial', 30, NULL),
+(16, 5, 22, 300, '3', 'initial', 2, NULL),
+(17, 5, 21, 50, '0', 'supply', 0, NULL),
+(18, 5, 20, 80, '0', 'supply', 0, NULL),
+(19, 5, 21, 67, '0', 'supply', 0, NULL),
+(20, 5, 21, 7, '0', 'supply', 0, NULL),
+(25, 6, 19, 1000, '10', 'initial', 9, 1000),
+(26, 6, 16, 650, '25', 'initial', 14, 500),
+(27, 6, 18, 1000, '15', 'initial', 40, 1000),
+(28, 6, 16, 150, '0', 'supply', 0, 0),
+(29, 6, 17, 100, '20', 'initial', 11, 100),
+(30, 7, 27, 600, '4', 'initial', 4, 100),
+(31, 7, 26, 200, '7', 'initial', 1, 200),
+(32, 7, 27, 500, '0', 'supply', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -237,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `ev_order` (
   PRIMARY KEY (`order_id`),
   KEY `company_id` (`company_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_order`
@@ -284,7 +296,23 @@ INSERT INTO `ev_order` (`order_id`, `event_id`, `company_id`, `uid_creator`, `cr
 (44, 2, NULL, 28, '2018-03-08 22:55:04', '85.00'),
 (45, 4, NULL, 30, '2018-03-08 23:50:44', '14.00'),
 (46, 4, NULL, 31, '2018-03-08 23:56:15', '8.00'),
-(47, 4, NULL, 30, '2018-03-09 00:05:19', '140.00');
+(47, 4, NULL, 30, '2018-03-09 00:05:19', '140.00'),
+(48, 3, NULL, 1, '2018-03-11 13:25:36', '150.00'),
+(49, 3, NULL, 1, '2018-03-11 13:28:10', '60.00'),
+(50, 3, NULL, 1, '2018-03-11 13:29:30', '60.00'),
+(51, 3, NULL, 1, '2018-03-11 13:37:52', '165.00'),
+(52, 3, NULL, 1, '2018-03-11 13:42:57', '130.00'),
+(53, 3, NULL, 1, '2018-03-11 13:44:47', '130.00'),
+(54, 3, NULL, 1, '2018-03-11 13:44:55', '0.00'),
+(55, 3, NULL, 1, '2018-03-11 13:45:05', '50.00'),
+(56, 3, NULL, 1, '2018-03-11 13:47:15', '50.00'),
+(57, 3, NULL, 1, '2018-03-11 13:47:18', '0.00'),
+(58, 3, NULL, 1, '2018-03-11 13:48:46', '60.00'),
+(59, 3, NULL, 1, '2018-03-11 14:01:38', '110.00'),
+(60, 3, NULL, 1, '2018-03-11 14:02:04', '250.00'),
+(61, 3, NULL, 1, '2018-03-11 14:02:38', '45.00'),
+(62, 5, NULL, 32, '2018-03-11 14:41:20', '12.00'),
+(63, 5, NULL, 1, '2018-03-11 15:40:37', '11.00');
 
 -- --------------------------------------------------------
 
@@ -302,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `ev_order_detail` (
   PRIMARY KEY (`detail_id`),
   KEY `product_id` (`product_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_order_detail`
@@ -383,7 +411,52 @@ INSERT INTO `ev_order_detail` (`detail_id`, `order_id`, `product_id`, `quantity`
 (72, 45, 20, 1, '5.00'),
 (73, 46, 20, 1, '5.00'),
 (74, 46, 22, 1, '3.00'),
-(75, 47, 20, 28, '5.00');
+(75, 47, 20, 28, '5.00'),
+(76, 48, 18, 5, '15.00'),
+(77, 48, 16, 3, '25.00'),
+(78, 49, 19, 2, '10.00'),
+(79, 49, 17, 2, '20.00'),
+(80, 50, 18, 4, '15.00'),
+(81, 51, 18, 5, '15.00'),
+(82, 51, 17, 2, '20.00'),
+(83, 51, 16, 2, '25.00'),
+(84, 52, 18, 3, '15.00'),
+(85, 52, 16, 1, '25.00'),
+(86, 52, 17, 3, '20.00'),
+(87, 53, 17, 3, '20.00'),
+(88, 53, 19, 4, '10.00'),
+(89, 53, 18, 2, '15.00'),
+(90, 55, 18, 1, '15.00'),
+(91, 55, 16, 1, '25.00'),
+(92, 55, 19, 1, '10.00'),
+(93, 56, 18, 1, '15.00'),
+(94, 56, 16, 1, '25.00'),
+(95, 56, 19, 1, '10.00'),
+(96, 58, 18, 2, '15.00'),
+(97, 58, 19, 1, '10.00'),
+(98, 58, 17, 1, '20.00'),
+(99, 59, 18, 4, '15.00'),
+(100, 59, 16, 2, '25.00'),
+(101, 60, 18, 10, '15.00'),
+(102, 60, 16, 4, '25.00'),
+(103, 61, 18, 3, '15.00'),
+(104, 62, 27, 3, '4.00'),
+(105, 63, 27, 1, '4.00'),
+(106, 63, 26, 1, '7.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ev_printer`
+--
+
+DROP TABLE IF EXISTS `ev_printer`;
+CREATE TABLE IF NOT EXISTS `ev_printer` (
+  `printer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL,
+  `printer_url` varchar(200) NOT NULL,
+  PRIMARY KEY (`printer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -403,7 +476,7 @@ CREATE TABLE IF NOT EXISTS `ev_product` (
   PRIMARY KEY (`product_id`),
   KEY `category_id` (`category_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_product`
@@ -425,7 +498,9 @@ INSERT INTO `ev_product` (`company_id`, `category_id`, `product_id`, `descriptio
 (14, 4, 19, 'Gaseosa', 'Y', '2018-03-08 22:35:00', 27),
 (15, 5, 20, 'pepsi', 'Y', '2018-03-08 23:48:00', 30),
 (15, 6, 21, 'shucos', 'Y', '2018-03-08 23:48:00', 30),
-(15, 7, 22, 'tortrix picante', 'Y', '2018-03-08 23:48:00', 30);
+(15, 7, 22, 'tortrix picante', 'Y', '2018-03-08 23:48:00', 30),
+(16, 10, 26, 'Producto 2', 'Y', '2018-03-11 14:35:00', 32),
+(16, 9, 27, 'Producto 1', 'Y', '2018-03-11 14:35:00', 32);
 
 -- --------------------------------------------------------
 
@@ -446,15 +521,16 @@ CREATE TABLE IF NOT EXISTS `ev_user` (
   `password` varbinary(100) NOT NULL,
   `last_access` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`),
   KEY `company_id` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ev_user`
 --
 
 INSERT INTO `ev_user` (`user_id`, `company_id`, `name`, `lastname`, `usertype`, `creation_date`, `uid_creator`, `username`, `password`, `last_access`) VALUES
-(1, NULL, 'Administrador', NULL, 'superadmin', NULL, NULL, 'admin', 0x6531306164633339343962613539616262653536653035376632306638383365, '2018-03-08 11:03:46'),
+(1, NULL, 'Administrador', NULL, 'superadmin', NULL, NULL, 'admin', 0x6531306164633339343962613539616262653536653035376632306638383365, '2018-03-11 03:03:39'),
 (18, 1, 'test', '', 'admin', '2018-03-05 22:56:00', 1, 'usuario', 0x6638303332643563616533646532306663656338383766333935656339613661, '2018-03-05 10:03:55'),
 (19, 10, 'admin_010', NULL, 'admin', '2018-03-08 19:48:00', 1, 'admin_010', 0x3935636230336636353031393730626539326633383862303937306335653461, NULL),
 (20, 10, 'vendedor_010', NULL, 'seller', '2018-03-08 19:48:00', 1, 'vendedor_010', 0x3537356236303661363262313534313433323666373165306334666164316662, NULL),
@@ -468,7 +544,9 @@ INSERT INTO `ev_user` (`user_id`, `company_id`, `name`, `lastname`, `usertype`, 
 (28, 14, 'vendedor_014', NULL, 'seller', '2018-03-08 20:01:00', 1, 'vendedor_014', 0x3630666535353039646433653963613961653563343964626237343931396336, '2018-03-08 10:03:28'),
 (29, 14, 'test', 'test', 'seller', '2018-03-08 22:23:00', 27, 'test', 0x6531306164633339343962613539616262653536653035376632306638383365, NULL),
 (30, 15, 'admin_015', '', 'admin', '2018-03-08 23:46:00', 1, 'admin_015', 0x6531306164633339343962613539616262653536653035376632306638383365, '2018-03-08 11:03:11'),
-(31, 15, 'vendedor_015', '', 'seller', '2018-03-08 23:45:00', 1, 'vendedor_015', 0x6531306164633339343962613539616262653536653035376632306638383365, '2018-03-08 11:03:50');
+(31, 15, 'vendedor_015', '', 'seller', '2018-03-08 23:45:00', 1, 'vendedor_015', 0x6531306164633339343962613539616262653536653035376632306638383365, '2018-03-08 11:03:50'),
+(32, 16, 'admin_016', NULL, 'admin', '2018-03-11 14:05:00', 1, 'admin_016', 0x3365303838373366626632643138333730383238303639626238323665633139, '2018-03-11 02:03:53'),
+(33, 16, 'vendedor_016', NULL, 'seller', '2018-03-11 14:05:00', 1, 'vendedor_016', 0x3264396431386433373430656330306339336639316332323933666632666534, '2018-03-11 02:03:53');
 
 -- --------------------------------------------------------
 
@@ -482,7 +560,7 @@ CREATE TABLE IF NOT EXISTS `metatabla` (
   `Nombre` varchar(45) NOT NULL,
   `PK` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID_Metatabla`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `metatabla`
@@ -494,7 +572,8 @@ INSERT INTO `metatabla` (`ID_Metatabla`, `Nombre`, `PK`) VALUES
 (3, 'ev_company', 'company_id'),
 (4, 'ev_product', 'product_id'),
 (5, 'ev_event', 'event_id'),
-(6, 'ev_user', 'user_id');
+(6, 'ev_user', 'user_id'),
+(7, 'ev_printer', 'printer_id');
 
 --
 -- Restricciones para tablas volcadas
