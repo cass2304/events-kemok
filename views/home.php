@@ -41,6 +41,9 @@
 
     <div class="col-sm-9 col-lg-10" id="content">
         <!-- page content -->
+        <div class="padreD">
+            <img src="./images/logo.png" alt="Kemok" style="margin-top: 22%; margin-left: 16%;">
+        </div>
     </div>
     <div id="fade"></div>
     <div id="modal">
