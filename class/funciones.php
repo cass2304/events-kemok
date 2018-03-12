@@ -92,7 +92,7 @@ function printOrder($arrOrder,$intCopia=0){
         //for($i = 0; $i < 2; $i++){
             
             /* Title */
-            $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+            //$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
             
             if($intCopia == 1){
                 $printer -> text("-----------\n");

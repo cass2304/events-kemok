@@ -67,7 +67,7 @@ class qrys extends BD{
         $strGroupBy = "";
         $strInner = "LEFT ";
         $strField = " IFNULL(D.quantity,0) ";
-        $available = ", 0 AS available ";
+        $available = ", (D.quantity - D.quantity_sold) AS available ";
         $strOrder = " ORDER BY D.status ";
         $strHaving = "HAVING status <> 'supply'";
         $strWhere = " ";

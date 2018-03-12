@@ -16,7 +16,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active" id="li-home" onclick=""><a href="#"><i class="fa fa-home fa-2x"></i> Home</a></li>
+                        <li class="active" id="li-home" onclick=""><a href="index.php"><i class="fa fa-home fa-2x"></i> Home</a></li>
                         
                         <?php 
                             if($_SESSION['session']['usertype'] == 'superadmin'){
@@ -42,7 +42,7 @@
     <div class="col-sm-9 col-lg-10" id="content">
         <!-- page content -->
         <div class="padreD">
-            <img src="./images/logo.png" alt="Kemok" style="margin-top: 22%; margin-left: 16%;">
+            <img src="./images/logo.png" alt="Kemok" class="img-responsive center-block">
         </div>
     </div>
     <div id="fade"></div>
