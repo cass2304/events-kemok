@@ -77,7 +77,7 @@ class CupsPrintConnector implements PrintConnector
         $this->buffer = null;
         
         // Build command to work on data
-        $tmpfname = tempnam(sys_get_temp_dir(), 'print-');
+        $tmpfname = tempnam("/Applications/XAMPP/xamppfiles/htdocs/", 'print-');
         file_put_contents($tmpfname, $data);
         $cmd = sprintf(
             "lp -d %s %s",
