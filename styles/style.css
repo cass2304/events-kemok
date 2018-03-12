@@ -261,6 +261,8 @@ body.loading .modal {
     border-radius: .25rem;
     margin-bottom: 5px;
     cursor: pointer;
+    width: 100%;
+    height: 120px;    
 }
 
 .card-block {

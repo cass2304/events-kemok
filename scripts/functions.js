@@ -248,10 +248,10 @@ function loadProduct(intVal){
                 var objTdPro = $("<td></td>").append(arrData.description);
                 var objTdCan = $("<td></td>");
                 var objTdPre = $("<td></td>");
-                var objTdExi = $("<td></td>").append(arrData.quantity);
+                var objTdExi = $("<td></td>").append(arrData.available);
                 var objTdBtn = $("<td></td>");
                 if(arrData.detail_id > 0){
-                    objTdCan.append(arrData.quantity_initial);
+                    objTdCan.append();
                     objTdPre.append(arrData.price);
                     if(arrData.status == 'initial'){
                         var objBtn = $('<button  class="btn btn-primary" type="button" data-toggle="modal" onclick="modalReabastecer('+data.result.inventory_id+','+arrData.product_id+');"><i class="fa fa-plus" aria-hidden="true"></i></button>');
@@ -259,8 +259,8 @@ function loadProduct(intVal){
                     }
                     
                 }else{
-                    var objInput = $("<input type='text' class='form-control' name='inv[quantity]["+arrData.product_id+"]' value='0' size='5'>");
-                    var objInputPre = $("<input type='text' class='form-control' name='inv[price]["+arrData.product_id+"]' value='0' size='5'>");
+                    var objInput = $("<input type='text' class='form-control' name='inv[quantity]["+arrData.product_id+"]' onKeyPress='return SoloEntero(event);' value='0' size='5'>");
+                    var objInputPre = $("<input type='text' class='form-control' name='inv[price]["+arrData.product_id+"]' onKeyPress='return SoloMonto(event);' value='0' size='5'>");
                     objTdCan.append(objInput);
                     objTdPre.append(objInputPre);
                 }
@@ -442,7 +442,7 @@ function addProductOrder(product_id , price){
     var objTd = $("<td></td>").append(title);
         objTr.append(objTd);
 
-    var objInputCant = $('<input type="number" class="form-control" id="cant_'+product_id+'" name="det[cant]['+product_id+']" value="1" onchange="updateTotal('+product_id+');">');    
+    var objInputCant = $('<input type="number" class="form-control" id="cant_'+product_id+'" name="det[cant]['+product_id+']" value="1" onKeyPress="return SoloEntero(event);" min="1" onchange="updateTotal('+product_id+');">');    
     var objInputHid = $('<input type="hidden" id="prod_'+product_id+'" name="det[product][]" value="'+product_id+'">');
     var objInputPriceHid = $('<input type="hidden" id="price_'+product_id+'" name="det[price]['+product_id+']" value="'+price+'">');
     var objTd = $("<td align='right'></td>").append(objInputCant);
@@ -511,6 +511,7 @@ function printOrder(){
                 showModal("Mensaje","Se genero la orden Nro."+data.id ,"success");
                 $("#tbody-order").html("");
                 $("#total_gen").html("");
+                $("#btn_order").addClass("disabled");
                 //window.open("include/procesos_ajax.php?printOrder=true&id="+data.id);
                 sendPrinter(data.id,0);
             }else{
@@ -540,7 +541,8 @@ function sendPrinter(order_id,copia){
                 if(copia == 0){
                     showModalCopy(order_id);
                 }else{
-                    $("#modalReimp").modal("hide");
+                    $("#modalReimp").remove();
+                    $('.modal-backdrop').remove();
                     if($("#slc_event").val() > 0){ 
                         loadProductOrder($("#slc_event").val());
                     }                    
@@ -565,7 +567,7 @@ function showModalCopy(order_id){
         '<h4 class="modal-title">Mensaje</h4>' +
         '</div>' +
         '<div class="modal-body">' +
-        '<p>Imprimir copia comercio</p>' +
+        '<p class="text-center">Imprimir copia comercio</p>' +
         '</div>' +
         '<div class="modal-footer">' +
         '<button type="button" class="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" onclick="sendPrinter('+order_id+',1)">Imprimir</button>' +
