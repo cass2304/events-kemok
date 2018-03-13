@@ -398,7 +398,7 @@ function loadProductOrder(intVal){
             if(data.status == 'ok'){
                 $("#inventory_id").val(data.result.inventory_id);
                 $.each(data.result.detail,function(intKey,arrData){
-                    var objDiv = $("<div class='col-sm-3'></div>");
+                    var objDiv = $("<div class='col-xs-6 col-sm-3'></div>");
 
                     var objCard = $("<div class='card' id='card_"+arrData.product_id+"' onclick='addProductOrder("+arrData.product_id+","+arrData.price+");'></div>");
                     var objCardBlock = $("<div class='card-block'></div>");

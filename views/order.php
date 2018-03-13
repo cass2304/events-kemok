@@ -42,9 +42,9 @@
         </div>
         <?php } ?>
         <div class="row">
-            <div class="col-sm-6" id="div-product">
+            <div class="col-xs-12 col-sm-6" id="div-product">
             </div>
-            <div class="col-sm-6" id="div-order">
+            <div class="col-xs-12 col-sm-6" id="div-order">
                <form id="form_ev_order" name="form_ev_order">
                 <table class="table table-striped">
                     <thead>

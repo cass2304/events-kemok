@@ -92,15 +92,16 @@ function printOrder($arrOrder,$intCopia=0){
         //for($i = 0; $i < 2; $i++){
             
             /* Title */
-            //$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-            
+
+            $printer -> selectPrintMode();
             if($intCopia == 1){
                 $printer -> text("-----------\n");
                 $printer -> text("COPIA DE CAJA\n");
                 $printer -> text("NO VALIDO PARA COMPRAS\n");
                 $printer -> feed();
             }
-            
+
+            $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
             $printer -> text("Ticket de compra\n");
             $printer -> selectPrintMode();
             $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -133,7 +134,7 @@ function printOrder($arrOrder,$intCopia=0){
             $printer -> text("Kemok\n");
             $printer -> text("info@kemok.io\n");
             $printer -> feed(3);
-            
+
         //}
 
         /* Cut the receipt and open the cash drawer */
