@@ -1,15 +1,9 @@
 <?php
+
 require __DIR__ . '/../autoload.php';
 use Mike42\Escpos\Printer;
-
-$sysOpe = strtoupper(substr(PHP_OS,0,3));
-if($sysOpe === "WIN"){
-    use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-    $connector = new WindowsPrintConnector("printer_sales");
-}else{
-    use Mike42\Escpos\PrintConnectors\CupsPrintConnector;    
-    $connector = new CupsPrintConnector("printer_sales");
-}
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;  
 
 /**
  * 
@@ -74,7 +68,7 @@ function printOrder($arrOrder,$intCopia=0){
         
     $intKey = key($arrOrder);
     $arrOrder = $arrOrder[$intKey];
-    
+    //$sysOpe = strtoupper(substr(PHP_OS,0,3)); 
     try {
         
         /* Information for the receipt */
@@ -93,10 +87,15 @@ function printOrder($arrOrder,$intCopia=0){
         // Enter the share name for your USB printer here
         //$connector = null;
         //$connector = new WindowsPrintConnector("printer_sales");
+        if(strtoupper(substr(PHP_OS,0,3)) === "WIN"){
+            $connector = new WindowsPrintConnector("printer_sales");
+        }else{
+            $connector = new CupsPrintConnector("printer_sales");
+        }
 
         /* Print a receipt" */
         $printer = new Printer($connector);
-        
+                
         //for($i = 0; $i < 2; $i++){
             
             /* Title */
@@ -141,7 +140,7 @@ function printOrder($arrOrder,$intCopia=0){
             $printer -> text("Gracias por su compra\n");
             $printer -> text("Kemok\n");
             $printer -> text("info@kemok.io\n");
-            $printer -> feed(3);
+            $printer -> feed(4);
 
         //}
 
