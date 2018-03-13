@@ -1,7 +1,15 @@
 <?php
 require __DIR__ . '/../autoload.php';
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+
+$sysOpe = strtoupper(substr(PHP_OS,0,3));
+if($sysOpe == "WIN"){
+    use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+    $connector = new WindowsPrintConnector("printer_sales");
+}else{
+    use Mike42\Escpos\PrintConnectors\CupsPrintConnector;    
+    $connector = new CupsPrintConnector("printer_sales");
+}
 
 /**
  * 
@@ -84,7 +92,7 @@ function printOrder($arrOrder,$intCopia=0){
         
         // Enter the share name for your USB printer here
         //$connector = null;
-        $connector = new WindowsPrintConnector("printer_sales");
+        //$connector = new WindowsPrintConnector("printer_sales");
 
         /* Print a receipt" */
         $printer = new Printer($connector);
