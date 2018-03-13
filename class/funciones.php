@@ -3,7 +3,7 @@ require __DIR__ . '/../autoload.php';
 use Mike42\Escpos\Printer;
 
 $sysOpe = strtoupper(substr(PHP_OS,0,3));
-if($sysOpe == "WIN"){
+if($sysOpe === "WIN"){
     use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
     $connector = new WindowsPrintConnector("printer_sales");
 }else{
