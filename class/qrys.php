@@ -53,17 +53,22 @@ class qrys extends BD{
     function getProductInventory($intEvent,$boolOrder=false){
         $arrReturn = array();
         $filterEmpresa = "";
-        if($_SESSION['session']['usertype'] != 'superadmin'){
+        $intInventory = 0;
+        /*if($_SESSION['session']['usertype'] != 'superadmin'){
             $filterEmpresa = " AND P.company_id = {$_SESSION['session']['company_id']}";
-        }else{
-            $this->query = "SELECT company_id FROM ev_event WHERE event_id = {$intEvent} ";
+        }else{*/
+            $this->query = "SELECT E.company_id, IFNULL(I.inventory_id,0) AS inventory_id
+                            FROM ev_event E
+                            LEFT JOIN ev_inventory I ON I.event_id = E.event_id
+                            WHERE E.event_id = {$intEvent} ";
             $this->consulta($this->query);
             if ($this->num_rows() > 0) { 
                 $this->rs01 = $this->fetch_assoc();
                 $intCompany = $this->rs01['company_id'];
+                $intInventory = $this->rs01['inventory_id'];
                 $filterEmpresa = " AND P.company_id = {$intCompany}";
             }
-        }
+        //}
         $strGroupBy = "";
         $strInner = "LEFT ";
         $strField = " IFNULL(D.quantity,0) ";
@@ -71,22 +76,24 @@ class qrys extends BD{
         $strOrder = " ORDER BY D.status ";
         $strHaving = "HAVING status <> 'supply'";
         $strWhere = " ";
+        $strLeft = ($intInventory == 0) ? " AND ISNULL(D.inventory_id) " : " AND D.inventory_id = {$intInventory} ";
         if($boolOrder){
             $strField = "  D.quantity "; 
             $available = " , (D.quantity - D.quantity_sold) AS available ";
             $strInner = "INNER ";
+            $strLeft = "";
             //$strGroupBy = " GROUP BY D.product_id ";
             $strOrder = " ORDER BY P.description ";
             $strHaving = " HAVING available > 0";
             $strWhere = " AND D.status = 'initial' ";
         }
         
-        $strQuery = "SELECT P.*, C.description AS category, IFNULL(D.detail_id,0) AS detail_id, IFNULL(D.inventory_id,0) AS inventory_id, 
+        $strQuery = "SELECT P.*, C.description AS category, IFNULL(D.detail_id,0) AS detail_id, IFNULL(I.inventory_id,0) AS inventory_id, 
                             IFNULL(D.price,0) AS price, {$strField} AS quantity, IFNULL(D.status,'no_inventory') AS status , I.event_id, I.active AS active_inv , D.quantity_sold, D.quantity_initial     
                             {$available}
                      FROM ev_product P
                      INNER JOIN ev_category C ON P.category_id = C.category_id
-                     {$strInner} JOIN ev_inventory_detail D ON D.product_id = P.product_id
+                     {$strInner} JOIN ev_inventory_detail D ON D.product_id = P.product_id {$strLeft}
                      {$strInner} JOIN ev_inventory I ON I.inventory_id = D.inventory_id AND I.event_id = {$intEvent}
                      WHERE P.active = 'Y' {$strWhere} {$filterEmpresa}
                      {$strGroupBy}  
@@ -99,6 +106,14 @@ class qrys extends BD{
             while($row = $this->fetch_assoc()){
                 if($row['inventory_id'] > 0){
                     $arrReturn['inventory_id'] = $row['inventory_id'];
+                }else{
+                    $row['detail_id'] = 0; 
+                    $row['quantity'] = 0;
+                    $row['quantity_sold'] = 0;
+                    $row['quantity_initial'] = 0;
+                    $row['available'] = 0;   
+                    $row['price'] = 0; 
+                    $row['status'] = 'initial'; 
                 }
                 if(!isset($arrReturn['detail'])) $arrReturn['detail'] = array();
                 $arrTMP = array(

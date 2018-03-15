@@ -230,7 +230,7 @@ body.loading .modal {
 }
 
 .row-content{
-  padding: 20px 60px 20px 60px;
+  padding: 20px 20px 20px 20px;
 }
 
 /*.fa-trash{
@@ -270,7 +270,7 @@ body.loading .modal {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1.25rem;
+    padding: 1rem;
 }
 
 .card-title {
@@ -318,4 +318,16 @@ body.loading .modal {
     z-index: 1002;
     text-align:center;
     overflow: auto;
+}
+
+.row{
+  margin: 0px;
+}
+
+#content{
+  padding: 0px;
+}
+
+#div-product, #div-order{
+  padding: 0px;
 }

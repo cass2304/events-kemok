@@ -398,13 +398,13 @@ function loadProductOrder(intVal){
             if(data.status == 'ok'){
                 $("#inventory_id").val(data.result.inventory_id);
                 $.each(data.result.detail,function(intKey,arrData){
-                    var objDiv = $("<div class='col-xs-6 col-sm-3'></div>");
+                    var objDiv = $("<div class='col-xs-6 col-sm-6 col-md-4 col-lg-3'></div>");
 
                     var objCard = $("<div class='card' id='card_"+arrData.product_id+"' onclick='addProductOrder("+arrData.product_id+","+arrData.price+");'></div>");
                     var objCardBlock = $("<div class='card-block'></div>");
-                    var objCardTitle = $("<h4 class='card-title'></h4>").append(arrData.description);
-                    var objCardSubTitle = $("<h6 class='card-subtitle mb-2 text-muted'>Precio Q: </h6>").append(arrData.price);
-                    var objCardP = $("<h6 class='card-subtitle mb-2 text-muted'>Existencia:</h6>").append(arrData.available);
+                    var objCardTitle = $("<h5 class='card-title'></h5>").append(arrData.description);
+                    var objCardSubTitle = $("<h6 class='card-subtitle mb-2 text-muted'>PVP Q.: </h6>").append(arrData.price);
+                    var objCardP = $("<h6 class='card-subtitle mb-2 text-muted'>Stock:</h6>").append(arrData.available);
                     //var objCardAdd = $('<button class="btn btn-success" type="button" ><i class="fa fa-plus" aria-hidden="true"></i></button>');
 
                         objCardBlock.append(objCardTitle);
